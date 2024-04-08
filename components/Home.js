@@ -22,6 +22,7 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
+    console.log("test de login", auth);
     this.fetchLists();
   }
 

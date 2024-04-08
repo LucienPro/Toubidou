@@ -20,7 +20,7 @@ export default function LoginPage({ navigation }) {
       // login was successful 
       navigation.reset({
         index: 0,
-        routes: [{ name: 'MainTabNavigator' }],
+        routes: [{ name: 'DrawerNavigator' }],
       })
     })
     .catch((error) => {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#4ECDC4',
+    backgroundColor: '#A7CBD9',
     padding: 10,
     borderRadius: 5,
   },

@@ -13,6 +13,7 @@ export default function RegisterPage({ navigation }) {
   const handleRegister = () => {
     createUserWithEmailAndPassword(auth, username, password)
       .then((userCredential) => {
+        console.log("test de login", userCredential);
         const user = userCredential.user;
         return setDoc(doc(db, "users", user.uid), {
           email: user.email,
@@ -20,6 +21,10 @@ export default function RegisterPage({ navigation }) {
       })
       .then(() => {
         console.log("Utilisateur enregistré et document créé dans Firestore");
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MainTabNavigator' }],
+        })
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#4ECDC4',
+    backgroundColor: '#A7CBD9',
     padding: 10,
     borderRadius: 5,
   },
