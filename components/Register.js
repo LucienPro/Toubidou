@@ -1,59 +1,71 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { auth } from './firebase/configfire'; 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from './firebase/configfire'; 
 import { doc, setDoc } from 'firebase/firestore';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().email('Email invalide').required('Email requis'),
+  password: Yup.string().required('Mot de passe requis').min(8, 'Le mot de passe doit contenir au moins 8 caractères'),
+});
 
 export default function RegisterPage({ navigation }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleRegister = () => {
-    createUserWithEmailAndPassword(auth, username, password)
-      .then((userCredential) => {
-        console.log("test de login", userCredential);
-        const user = userCredential.user;
-        return setDoc(doc(db, "users", user.uid), {
-          email: user.email,
-        });
-      })
-      .then(() => {
-        console.log("Utilisateur enregistré et document créé dans Firestore");
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'MainTabNavigator' }],
-        })
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorMessage);
-        console.log(errorCode, errorMessage);
+  const handleRegister = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, values.username, values.password);
+      const user = userCredential.user;
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
       });
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'DrawerNavigator' }],
+      });
+    } catch (error) {
+      const errorMessage = error.message;
+      setFieldError('general', errorMessage);
+      setSubmitting(false);
+    }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Register</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        validationSchema={validationSchema}
+        onSubmit={handleRegister}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isSubmitting }) => (
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
+              value={values.username}
+              keyboardType="email-address"
+            />
+            {touched.username && errors.username && <Text style={styles.error}>{errors.username}</Text>}
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+            />
+            {touched.password && errors.password && <Text style={styles.error}>{errors.password}</Text>}
+            <TouchableOpacity style={styles.button} onPress={handleSubmit} disabled={isSubmitting}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+            {errors.general && <Text style={styles.error}>{errors.general}</Text>}
+          </View>
+        )}
+      </Formik>
     </View>
   );
 }
@@ -90,5 +102,6 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red',
+    marginBottom: 10,
   },
 });

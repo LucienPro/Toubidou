@@ -2,52 +2,68 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { auth } from './firebase/configfire';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required('Le nom d\'utilisateur est requis'),
+  password: Yup.string().required('Le mot de passe est requis'),
+});
 
 export default function LoginPage({ navigation }) {
-  const [userCredential, setUserCredential] = useState({
-    username: '',
-    password: '',
-  });
   const [error, setError] = useState('');
 
+  const handleResetPassword = () => {
+    navigation.navigate('ResetPassword');
+  };
 
-  const handleLogin = () => {
-    console.log('user' + userCredential.username);
-    console.log('password' + userCredential.password);
-    setError('');
-    signInWithEmailAndPassword(auth, userCredential.username, userCredential.password)
-    .then(() => {
-      // login was successful 
+  const handleLogin = async (values) => {
+    try {
+      await signInWithEmailAndPassword(auth, values.username, values.password);
       navigation.reset({
         index: 0,
         routes: [{ name: 'DrawerNavigator' }],
-      })
-    })
-    .catch((error) => {
-      const errorMessage = error.message;
-      setError(errorMessage);
-    });
+      });
+    } catch (error) {
+      setError(error.message);
+    }
   };
-  const handleInputChange = (name, value) => { 
-    setUserCredential({...userCredential, [name]: value});  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={userCredential.username}
-        onChangeText={(value) => handleInputChange('username', value)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-        value={userCredential.password}
-        onChangeText={(value) => handleInputChange('password', value)}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Submit</Text>
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        validationSchema={validationSchema}
+        onSubmit={handleLogin}
+      >
+        {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder="Username"
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
+              value={values.username}
+            />
+            {touched.username && errors.username && <Text style={styles.error}>{errors.username}</Text>}
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry={true}
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+            />
+            {touched.password && errors.password && <Text style={styles.error}>{errors.password}</Text>}
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </Formik>
+      <TouchableOpacity onPress={handleResetPassword}>
+        <Text style={styles.resetPasswordLink}>Forgot password?</Text>
       </TouchableOpacity>
       <Text style={styles.error}>{error}</Text>
     </View>
@@ -83,6 +99,10 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  resetPasswordLink: {
+    color: 'blue',
+    marginTop: 10,
   },
   error: {
     color: 'red',

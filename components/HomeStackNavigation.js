@@ -9,6 +9,7 @@ import Home from './Home';
 import RegisterPage from './Register';
 import Test from './Test';
 import Logout from './Logout';
+import ResetPassword from './ResetPassword';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -21,9 +22,6 @@ const HomeDrawerNavigator = () => {
        <Drawer.Screen 
         name="Logout" 
         component={Logout} 
-        options={{
-          // tabBarIcon peut être ajouté ici si vous avez des icônes
-        }}
       />
      </Drawer.Navigator>
    );
@@ -36,6 +34,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Login" component={LoginPage} />
       <Stack.Screen name="Register" component={RegisterPage} />
       <Stack.Screen name="DrawerNavigator" component={HomeDrawerNavigator} />
+      <Stack.Screen name="ResetPassword" component={ResetPassword} />
     </Stack.Navigator>
   );
 };
