@@ -133,19 +133,22 @@ export default class App extends React.Component {
           <Text style={styles.title}>TOUBIDOU</Text>
           <View style={styles.divider} />
         </View>
+        
+        <Text style={styles.add}>Crée toi une liste en cliquant sur le + ci-dessous 🗂️</Text>
 
         <View style={{ marginVertical: 48 }}>
+        
           <TouchableOpacity
             style={styles.addList}
             onPress={() => this.toggleAddTodoModal()}
           >
-            <AntDesign name="plus" size={16} color={colors.blue} />
+            <AntDesign name="plus" size={16} color="#262626" />
           </TouchableOpacity>
 
-          <Text style={styles.add}>Ajouter</Text>
+          {/* <Text style={styles.add}>Créer une liste</Text> */}
         </View>
 
-        <View style={{ height: 275, paddingLeft: 32 }}>
+        <View style={{ height: 275, paddingLeft: 10 }}>
           <FlatList
             data={this.state.lists}
             keyExtractor={(item) => item.name}
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   divider: {
-    backgroundColor: colors.lightBlue,
+    backgroundColor: "#262626",
     height: 1,
     flex: 1,
     alignSelf: "center",
@@ -181,16 +184,16 @@ const styles = StyleSheet.create({
   },
   addList: {
     borderWidth: 2,
-    borderColor: colors.lightBlue,
-    borderRadius: 4,
+    borderRadius: 100,
     padding: 16,
     alignItems: "center",
     justifyContent: "center",
+    borderColor:"#262626",
   },
   add: {
-    color: colors.blue,
     fontWeight: "600",
-    fontSize: 14,
-    marginTop: 8,
+    fontSize: 16,
+    marginTop: 36,
+    color :"#262626",
   },
 });

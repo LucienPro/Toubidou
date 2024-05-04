@@ -12,10 +12,16 @@ import colors from "../tools/Color.js";
 
 export default class AddListModal extends React.Component {
   backgroundColors = [
-    "red",
-    "green",
-    "yellow",
-    "blue",
+    "#f94144",
+    "#f3722c",
+    "#f9844a",
+    "#f8961e",
+    "#f9c74f",
+    "#90be6d",
+    "#43aa8b",
+    "#4d908e",
+    "#577590",
+    "#277da1",
   ];
 
   state = {
@@ -57,11 +63,14 @@ export default class AddListModal extends React.Component {
         </TouchableOpacity>
 
         <View style={{ alignSelf: "stretch", marginHorizontal: 32 }}>
-          <Text style={styles.title}>Créer</Text>
+          <Text style={styles.title}>C'est si beau ! 🎨</Text>
+          <Text style={styles.subtitle}>C'est ici que tu choisis ton thème et sa couleur associée</Text>
 
           <TextInput
+            maxLength={20}
             style={styles.input}
-            placeholder="Nom ?"
+            placeholder="Liste de courses"
+            placeholderTextColor={"#E8E8E8"}
             onChangeText={(text) => this.setState({ name: text })}
           />
 
@@ -79,8 +88,8 @@ export default class AddListModal extends React.Component {
             style={[styles.create, { backgroundColor: this.state.color }]}
             onPress={this.createTodo}
           >
-            <Text style={{ color: colors.white, fontWeight: "600" }}>
-              Create!
+            <Text style={{ color: colors.white, fontWeight: "900" }}>
+              Créer un thème
             </Text>
           </TouchableOpacity>
         </View>
@@ -95,21 +104,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  title: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: colors.black,
-    alignSelf: "center",
-    marginBottom: 16,
+  title:{
+    fontSize: 26,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#262626",
+  },
+  subtitle:{
+    color: "#A6A6A6",
+    fontSize: 18,
+    marginBottom: 20,
   },
   input: {
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: colors.blue,
+    borderColor: "#A6A6A6",
     borderRadius: 6,
     height: 50,
     marginTop: 8,
     paddingHorizontal: 16,
     fontSize: 18,
+    color: "#262626",
   },
   create: {
     marginTop: 24,

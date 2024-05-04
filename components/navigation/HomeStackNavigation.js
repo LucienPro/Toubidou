@@ -2,6 +2,9 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  Image,
+} from "react-native";
 
 import WelcomeScreen from "../screen/WelcomeScreen";
 import LoginPage from "../screen/LoginPage";
@@ -20,8 +23,8 @@ const HomeDrawerNavigator = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Accueil" component={MainTabNavigator} />
-      <Drawer.Screen name="UserParam" component={UserParam}/>
-      <Drawer.Screen name="Logout" component={Logout} />
+      <Drawer.Screen name="Paramètres" component={UserParam}/>
+      <Drawer.Screen name="Déconnexion" component={Logout} />
     </Drawer.Navigator>
   );
 };
@@ -44,15 +47,36 @@ const StackNavigator = () => {
 const MainTabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
+
       <Tab.Screen
-        name="Home"
+        name="Listes"
         component={Home}
         screenOptions={{ headerShown: false }}
+        options={{
+          tabBarIcon: ({size,focused,color}) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source={require("../../assets/list-text.png")}
+              />
+            );
+          },
+        }}
       />
       <Tab.Screen
         name="Support"
         component={ChatBot}
         screenOptions={{ headerShown: false }}
+        options={{
+          tabBarIcon: ({size,focused,color}) => {
+            return (
+              <Image
+                style={{ width: size, height: size }}
+                source={require("../../assets/help.png")}
+              />
+            );
+          },
+        }}
       />
     </Tab.Navigator>
   );

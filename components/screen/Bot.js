@@ -77,11 +77,7 @@ const ChatBot = () => {
     <View style={{ flex: 1 }}>
       <View
         style={{
-          backgroundColor: "#f5f5f5",
           padding: 10,
-          alignItems: "center",
-          justifyContent: "center",
-          borderBottomWidth: 1,
           marginTop: 40,
           marginBottom: 5,
         }}
@@ -92,7 +88,15 @@ const ChatBot = () => {
             fontWeight: "bold",
           }}
         >
-          TOUBIDOU BOT
+          IA TOUBIDOU
+        </Text>
+        <Text
+          style={{
+            fontSize: 20,
+            marginTop: 10,
+          }}
+        >
+          Tu as une question à poser à ChatGPT ? Pose là ici, on s'occupe du reste 🧠
         </Text>
       </View>
       <GiftedChat

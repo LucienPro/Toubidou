@@ -45,7 +45,11 @@ export default function RegisterPage({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Inscription</Text>
+      
+      <Text style={styles.title}>Salut, bienvenue 👋</Text>
+      
+      <Text style={styles.subtitle}>C'est parti, crée ton compte ci-dessous</Text>
+      
       <Formik
         initialValues={{ username: "", password: "" }}
         validationSchema={validationSchema}
@@ -61,9 +65,10 @@ export default function RegisterPage({ navigation }) {
           isSubmitting,
         }) => (
           <View>
+            <Text style={styles.boxtitle}>Adresse Email</Text>
             <TextInput
               style={styles.input}
-              placeholder="Email"
+              placeholder="jeanclaude.vandamme@mail.com"
               onChangeText={handleChange("username")}
               onBlur={handleBlur("username")}
               value={values.username}
@@ -72,9 +77,10 @@ export default function RegisterPage({ navigation }) {
             {touched.username && errors.username && (
               <Text style={styles.error}>{errors.username}</Text>
             )}
+            <Text style={styles.boxtitle}>Mot de passe</Text>
             <TextInput
               style={styles.input}
-              placeholder="Mot de passe"
+              placeholder="*************"
               secureTextEntry
               onChangeText={handleChange("password")}
               onBlur={handleBlur("password")}
@@ -93,6 +99,7 @@ export default function RegisterPage({ navigation }) {
             {errors.general && (
               <Text style={styles.error}>{errors.general}</Text>
             )}
+            <Text style={styles.mentions}>En t'inscrivant, tu acceptes nos conditions d'utilisation et notre politique de confidentialité</Text>
           </View>
         )}
       </Formik>
@@ -104,34 +111,73 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     paddingHorizontal: 20,
   },
+
   header: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: 'center',
+    alignSelf:'flex-start',
+    color: "#262626",
   },
+
+  title:{
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "#262626",
+  },
+
+  subtitle:{
+    color: "#A6A6A6",
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  
+  boxtitle:{
+    fontWeight: "bold",
+    marginTop : 20,
+    marginBottom : 10,
+    fontSize: 16,
+    color: "#262626",
+  },
+  
   input: {
-    height: 40,
+    height: 52,
     width: "100%",
     borderColor: "gray",
+    borderRadius: 8,
     borderWidth: 1,
-    marginBottom: 20,
     paddingHorizontal: 10,
   },
-  button: {
-    backgroundColor: "#A7CBD9",
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
-  },
+
   error: {
-    color: "red",
-    marginBottom: 10,
+    color: "#ff0033",
+    marginTop: 5,
+    fontSize: 14,
+  },
+
+  button: {
+    backgroundColor: '#47A920',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 50,
+  },
+  
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+
+  mentions: {
+    color: "#A6A6A6",
+    fontSize: 14,
+    marginTop: 20,
+    textAlign: 'center'
   },
 });

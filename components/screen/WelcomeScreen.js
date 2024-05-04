@@ -12,6 +12,7 @@ import { Button } from "../tools/Button";
 const { width, height } = Dimensions.get("window");
 
 export default function WelcomeScreen({ navigation }) {
+
   return (
     <ImageBackground
       source={require("../../assets/background_green.jpg")}
@@ -24,7 +25,15 @@ export default function WelcomeScreen({ navigation }) {
           source={require("../../assets/logo_toubidou.png")}
           resizeMode="contain"
         />
-        <Text style={styles.textlogo}>TOUBIDOU</Text>
+        <Text style={styles.title}>TOUBIDOU</Text>
+        <Text style={styles.subtitle}>
+          L'application qui booste ta productivité et te simplifie la vie
+        </Text>
+        <Image
+          style={styles.logo_down}
+          source={require("../../assets/sens.png")}
+          resizeMode="contain"
+        />
       </View>
       <View style={styles.buttonContainer}>
         <Button
@@ -54,23 +63,34 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-end",
     alignItems: "center",
-    marginBottom: 125, 
-   
+    marginBottom: 125,
   },
   logo: {
     height: "50%",
-    marginTop: 150,
+    marginTop: 40,
   },
   logoContainer: {
     flex: 1,
     justifyContent: "flex-start",
-    paddingTop: height * 0.1, 
+    paddingTop: height * 0.1,
     alignItems: "center",
   },
-  textlogo: {
-    fontSize: width * 0.06, 
-    fontWeight: "800",
-    paddingVertical: height * 0.02, 
-    color: "white",
+  title: {
+    marginTop: 50,
+    fontSize: 64,
+    color: "#D9F2D0",
+    fontWeight:'bold',
+  },
+  subtitle: {
+    fontSize: 22,
+    color: "#D9F2D0",
+    textAlign: "center",
+    fontWeight:"bold",
+    paddingHorizontal: 20,
+    marginTop:35,
+  },
+  logo_down:{
+    marginTop: 50,
+    height: "5%",
   },
 });
