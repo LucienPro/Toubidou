@@ -7,7 +7,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([]);
 
   const YOUR_CHATGPT_API_KEY =
-    "";
+    "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";
 
   const handleSend = async (newMessages = []) => {
     const userMessage = newMessages[0];
