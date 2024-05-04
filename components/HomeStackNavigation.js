@@ -20,6 +20,7 @@ const HomeDrawerNavigator = () => {
   return (
     <Drawer.Navigator>
       <Drawer.Screen name="Accueil" component={MainTabNavigator} />
+      <Drawer.Screen name="UserParam" component={UserParam}/>
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );
