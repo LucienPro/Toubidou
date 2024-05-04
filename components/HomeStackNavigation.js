@@ -11,6 +11,7 @@ import Test from "./Test";
 import Logout from "./Logout";
 import ResetPassword from "./ResetPassword";
 import ChatBot from "./Bot";
+import UserParam from './UserParam';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
