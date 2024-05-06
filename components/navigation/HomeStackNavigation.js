@@ -14,6 +14,7 @@ import Logout from "../tools/Logout";
 import ResetPassword from "../screen/ResetPassword";
 import UserParam from '../screen/UserParam';
 import ChatBot from "../screen/Bot";
+import Legal from "../screen/Legal";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,6 +41,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Register" component={RegisterPage} />
       <Stack.Screen name="DrawerNavigator" component={HomeDrawerNavigator} />
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
+      <Stack.Screen name="Legal" component={Legal} />
     </Stack.Navigator>
   );
 };
@@ -53,7 +55,7 @@ const MainTabNavigator = () => {
         component={Home}
         screenOptions={{ headerShown: false }}
         options={{
-          tabBarIcon: ({size,focused,color}) => {
+          tabBarIcon: ({size}) => {
             return (
               <Image
                 style={{ width: size, height: size }}
@@ -68,7 +70,7 @@ const MainTabNavigator = () => {
         component={ChatBot}
         screenOptions={{ headerShown: false }}
         options={{
-          tabBarIcon: ({size,focused,color}) => {
+          tabBarIcon: ({size}) => {
             return (
               <Image
                 style={{ width: size, height: size }}

@@ -43,13 +43,18 @@ export default function RegisterPage({ navigation }) {
     }
   };
 
+  const handleCGU = () => {
+    navigation.navigate("Legal");
+  };
+
   return (
     <View style={styles.container}>
-      
       <Text style={styles.title}>Salut, bienvenue 👋</Text>
-      
-      <Text style={styles.subtitle}>C'est parti, crée ton compte ci-dessous</Text>
-      
+
+      <Text style={styles.subtitle}>
+        C'est parti, crée ton compte ci-dessous
+      </Text>
+
       <Formik
         initialValues={{ username: "", password: "" }}
         validationSchema={validationSchema}
@@ -99,7 +104,14 @@ export default function RegisterPage({ navigation }) {
             {errors.general && (
               <Text style={styles.error}>{errors.general}</Text>
             )}
-            <Text style={styles.mentions}>En t'inscrivant, tu acceptes nos conditions d'utilisation et notre politique de confidentialité</Text>
+            <Text style={styles.mentions}>
+              En t'inscrivant, tu acceptes nos 
+            </Text>
+            <TouchableOpacity onPress={handleCGU}>
+              <Text style={styles.mentionslink}>conditions d'utilisation</Text>
+            </TouchableOpacity>
+            
+
           </View>
         )}
       </Formik>
@@ -112,38 +124,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingHorizontal: 20,
+    backgroundColor: "white",
   },
 
   header: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
-    alignSelf:'flex-start',
+    textAlign: "center",
+    alignSelf: "flex-start",
     color: "#262626",
   },
 
-  title:{
+  title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
     color: "#262626",
   },
 
-  subtitle:{
+  subtitle: {
     color: "#A6A6A6",
     fontSize: 16,
     marginBottom: 20,
   },
-  
-  boxtitle:{
+
+  boxtitle: {
     fontWeight: "bold",
-    marginTop : 20,
-    marginBottom : 10,
+    marginTop: 20,
+    marginBottom: 10,
     fontSize: 16,
     color: "#262626",
   },
-  
+
   input: {
     height: 52,
     width: "100%",
@@ -160,24 +173,31 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: '#47A920',
+    backgroundColor: "#47A920",
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderRadius: 5,
     marginTop: 50,
   },
-  
+
   buttonText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
 
   mentions: {
     color: "#A6A6A6",
     fontSize: 14,
+    textAlign: "center",
     marginTop: 20,
-    textAlign: 'center'
   },
+
+  mentionslink: {
+    color: "#A6A6A6",
+    fontSize: 14,
+    textAlign: "center",
+    color:'blue',
+  }
 });

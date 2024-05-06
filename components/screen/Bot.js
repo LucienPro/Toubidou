@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import React, { useState } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
 import axios from "axios";
+import { Divider } from "react-native-paper";
 
 const ChatBot = () => {
   const [messages, setMessages] = useState([]);
@@ -74,30 +75,34 @@ const ChatBot = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: 'white', }}>
       <View
         style={{
           padding: 10,
-          marginTop: 40,
-          marginBottom: 5,
+          marginTop: 10,
+          backgroundColor: 'white',
         }}
       >
         <Text
           style={{
-            fontSize: 32,
+            fontSize: 24,
             fontWeight: "bold",
+            marginBottom: 10,
+            color: "#262626",
           }}
         >
           IA TOUBIDOU
         </Text>
         <Text
           style={{
-            fontSize: 20,
-            marginTop: 10,
+            color: "#A6A6A6",
+            fontSize: 16,
+            marginBottom: 20,
           }}
         >
           Tu as une question à poser à ChatGPT ? Pose là ici, on s'occupe du reste 🧠
         </Text>
+        <Divider />
       </View>
       <GiftedChat
         messages={messages}
